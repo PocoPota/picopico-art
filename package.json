@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format:fix": "prettier src --write",
+    "format": "prettier src --check"
   },
   "dependencies": {
     "react": "^19.0.0",
