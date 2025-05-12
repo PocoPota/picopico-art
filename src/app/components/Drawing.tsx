@@ -114,16 +114,19 @@ export default function Drawing() {
   const handleTouchStart = (e: any) => {
     e.evt.preventDefault();
     const point = e.target.getStage().getPointerPosition();
-    setLines([
-        ...lines,
-        {
-            tool,
-            points: [point.x, point.y],
-            color: hex,
-            strokeWidth: lineWidth,
-        },
-    ]);
+    const newLine = {
+      tool,
+      points: [point.x, point.y],
+      color: hex,
+      strokeWidth: lineWidth,
+    }
+    const newLines = [...lines, newLine];
+    setLines(newLines);
     isDrawing.current = true;
+    const snapshot = JSON.parse(JSON.stringify(newLines));
+    setHistory([...history, snapshot]);
+
+    setRedoStack([]);
     setIsDisplayColorPicker(false);
 };
 
