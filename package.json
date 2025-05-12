@@ -12,18 +12,26 @@
     "format": "prettier src --check"
   },
   "dependencies": {
+    "canvas": "^3.1.0",
+    "clsx": "^2.1.1",
+    "konva": "^9.3.20",
     "next": "15.3.2",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
+    "react-color": "^2.19.3",
     "react-dom": "^19.0.0",
+    "react-konva": "^19.0.3",
     "sass": "^1.88.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
+    "@types/react-color": "^3.0.13",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "eslint": "^9.26.0",
     "eslint-config-next": "15.3.2",
     "typescript": "^5"
   }

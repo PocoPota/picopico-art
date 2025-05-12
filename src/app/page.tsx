@@ -1,3 +1,5 @@
+import Drawing from "./components/Drawing";
+
 export default function Home() {
-  return <div>ぴこぴこアート</div>;
+  return <Drawing />;
 }
