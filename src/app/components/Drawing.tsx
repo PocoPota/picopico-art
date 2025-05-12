@@ -104,6 +104,38 @@ export default function Drawing() {
     }
   };
 
+  const handleTouchStart = (e: any) => {
+    e.evt.preventDefault();
+    const point = e.target.getStage().getPointerPosition();
+    setLines([
+        ...lines,
+        {
+            tool,
+            points: [point.x, point.y],
+            color: hex,
+            strokeWidth: lineWidth,
+        },
+    ]);
+    isDrawing.current = true;
+};
+
+const handleTouchMove = (e: any) => {
+    e.evt.preventDefault();
+    if (!isDrawing.current) {
+        return;
+    }
+    const point = e.target.getStage().getPointerPosition();
+    let lastLine = lines[lines.length - 1];
+    lastLine.points = lastLine.points.concat([point.x, point.y]);
+    lines.splice(lines.length - 1, 1, lastLine);
+    setLines([...lines]);
+};
+
+const handleTouchEnd = (e: any) => {
+    e.evt.preventDefault();
+    isDrawing.current = false;
+};
+
   return (
     <div className={styles.drawing}>
       <div className={styles.stage}>
@@ -114,6 +146,9 @@ export default function Drawing() {
           onMousemove={handleMouseMove}
           onMouseUp={handleMouseUp}
           ref={stageRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <Layer>
             <Rect
