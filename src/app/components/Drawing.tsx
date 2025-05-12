@@ -3,7 +3,8 @@
 import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 
-import { Stage, Layer, Line } from "react-konva";
+import Konva from "konva";
+import { Stage, Layer, Line, Rect } from "react-konva";
 
 import styles from "./Drawing.module.scss";
 import Button from "./Button";
@@ -22,6 +23,7 @@ export default function Drawing() {
   };
   const [history, setHistory] = useState<any[]>([]);
   const [redoStack, setRedoStack] = useState<any[]>([]);
+  const stageRef = useRef<Konva.Stage>(null);
 
   const handleMouseDown = (e: any) => {
     isDrawing.current = true;
@@ -87,11 +89,20 @@ export default function Drawing() {
     setRedoStack(newRedoStack);
   };
 
-  const handleReset = ()=>{
+  const handleReset = () => {
     setLines([]);
     setHistory([]);
     setRedoStack([]);
-  }
+  };
+
+  const handleDownload = () => {
+    if (stageRef.current) {
+      const a = document.createElement("a");
+      a.href = stageRef.current.toCanvas().toDataURL();
+      a.download = "image.png";
+      a.click();
+    }
+  };
 
   return (
     <div className={styles.drawing}>
@@ -102,8 +113,17 @@ export default function Drawing() {
           onMouseDown={handleMouseDown}
           onMousemove={handleMouseMove}
           onMouseUp={handleMouseUp}
+          ref={stageRef}
         >
           <Layer>
+            <Rect
+              x={0}
+              y={0}
+              width={800}
+              height={400}
+              fill="#ffffff"
+              listening={false}
+            />
             {lines.map((line, i) => (
               <Line
                 key={i}
@@ -136,12 +156,12 @@ export default function Drawing() {
           label="カラー"
           onClick={onClickDisplayColorPicker}
           size="small"
-          />
+        />
         <Button
           label="←戻る"
           onClick={handleUndo}
           size="small"
-          />
+        />
         <Button
           label="進む→"
           onClick={handleRedo}
@@ -150,6 +170,11 @@ export default function Drawing() {
         <Button
           label="リセット"
           onClick={handleReset}
+          size="small"
+        />
+        <Button
+          label="ダウンロード"
+          onClick={handleDownload}
           size="small"
         />
       </div>
