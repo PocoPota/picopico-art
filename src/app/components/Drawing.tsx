@@ -1,16 +1,24 @@
 "use client";
 
 import { useState, useRef } from "react";
+import dynamic from "next/dynamic";
 
 import { Stage, Layer, Line } from "react-konva";
 
 import styles from "./Drawing.module.scss";
 import Button from "./Button";
 
+const ColorPicker = dynamic(() => import("./ColorPicker"), { ssr: false });
+
 export default function Drawing() {
   const [tool, setTool] = useState("pen");
   const [lines, setLines] = useState<any[]>([]);
   const isDrawing = useRef(false);
+  const [hex, setHex] = useState("#fe8fc6");
+  const [isDisplayColorPicker, setIsDisplayColorPicker] = useState(false);
+  const onClickDisplayColorPicker = () => {
+    setIsDisplayColorPicker(!isDisplayColorPicker);
+  };
 
   const handleMouseDown = (e: any) => {
     isDrawing.current = true;
@@ -20,7 +28,7 @@ export default function Drawing() {
       {
         tool,
         points: [position.x, position.y],
-        color: "#fe8fc6",
+        color: hex,
         strokeWidth: 3,
       },
     ]);
@@ -84,6 +92,16 @@ export default function Drawing() {
           label="消しゴム"
           onClick={() => onClickChangeTool("eraser")}
           size="small"
+        />
+        <Button
+          label="カラー"
+          onClick={onClickDisplayColorPicker}
+        />
+      </div>
+      <div style={{ display: isDisplayColorPicker ? "block" : "none" }}>
+        <ColorPicker
+          color={hex}
+          onChange={(color) => setHex(color.hex)}
         />
       </div>
     </div>
