@@ -41,6 +41,7 @@ export default function Drawing() {
     setHistory([...history, snapshot]);
 
     setRedoStack([]);
+    setIsDisplayColorPicker(false);
   };
 
   const handleMouseMove = (e: any) => {
@@ -61,10 +62,12 @@ export default function Drawing() {
 
   const onClickChangeTool = (tool: string) => {
     setTool(tool);
+    setIsDisplayColorPicker(false);
   };
 
   const handleLineWidthChange = (e: any) => {
     setLineWidth(Number(e.target.value));
+    setIsDisplayColorPicker(false);
   };
 
   const handleUndo = () => {
@@ -76,6 +79,7 @@ export default function Drawing() {
     setRedoStack([...redoStack, currentLines]);
     setLines(prevLines);
     setHistory(history.slice(0, -1));
+    setIsDisplayColorPicker(false);
   };
 
   const handleRedo = () => {
@@ -87,12 +91,14 @@ export default function Drawing() {
     setHistory([...history, restored]);
     setLines(restored);
     setRedoStack(newRedoStack);
+    setIsDisplayColorPicker(false);
   };
 
   const handleReset = () => {
     setLines([]);
     setHistory([]);
     setRedoStack([]);
+    setIsDisplayColorPicker(false);
   };
 
   const handleDownload = () => {
@@ -102,6 +108,7 @@ export default function Drawing() {
       a.download = "image.png";
       a.click();
     }
+    setIsDisplayColorPicker(false);
   };
 
   const handleTouchStart = (e: any) => {
@@ -117,6 +124,7 @@ export default function Drawing() {
         },
     ]);
     isDrawing.current = true;
+    setIsDisplayColorPicker(false);
 };
 
 const handleTouchMove = (e: any) => {
