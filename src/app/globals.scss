@@ -14,4 +14,11 @@
   --c-primary: rgb(254, 143, 198);
   --c-black: black;
   --c-white: white;
+
+  --s-width: 800px;
+}
+
+main{
+  width: var(--s-width);
+  margin: 0 auto;
 }
