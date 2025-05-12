@@ -9,10 +9,12 @@
   padding: 0.4em 1.3em;
   border-radius: 4em;
   cursor: pointer;
-  background: purple;
-  color: white;
+  &:hover{
+    opacity: 0.8;
+  }
 }
 
+// size
 .small {
   font-size: small;
 }
@@ -21,4 +23,10 @@
 }
 .large {
   font-size: large;
+}
+
+// color
+.primary{
+  background: var(--c-primary);
+  color: var(--c-white);
 }
