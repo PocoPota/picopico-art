@@ -31,14 +31,13 @@ export default function Drawing() {
       points: [position.x, position.y],
       color: hex,
       strokeWidth: lineWidth,
-    }
+    };
     const newLines = [...lines, newLine];
     setLines(newLines);
-  
-    // deep copy（JSONで簡易的に）
+
     const snapshot = JSON.parse(JSON.stringify(newLines));
     setHistory([...history, snapshot]);
-  
+
     setRedoStack([]);
   };
 
@@ -68,29 +67,26 @@ export default function Drawing() {
 
   const handleUndo = () => {
     if (history.length === 0) return;
-  
-    const prevLines = history.length > 1
-      ? history[history.length - 2]
-      : [];
-  
+
+    const prevLines = history.length > 1 ? history[history.length - 2] : [];
+
     const currentLines = JSON.parse(JSON.stringify(lines));
     setRedoStack([...redoStack, currentLines]);
     setLines(prevLines);
     setHistory(history.slice(0, -1));
   };
-  
+
   const handleRedo = () => {
     if (redoStack.length === 0) return;
-  
+
     const restored = redoStack[redoStack.length - 1];
     const newRedoStack = redoStack.slice(0, -1);
     const currentLines = JSON.parse(JSON.stringify(lines));
-    
+
     setHistory([...history, restored]);
     setLines(restored);
     setRedoStack(newRedoStack);
   };
-  
 
   return (
     <div className={styles.drawing}>
