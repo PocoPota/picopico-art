@@ -119,7 +119,7 @@ export default function Drawing() {
       points: [point.x, point.y],
       color: hex,
       strokeWidth: lineWidth,
-    }
+    };
     const newLines = [...lines, newLine];
     setLines(newLines);
     isDrawing.current = true;
@@ -128,24 +128,24 @@ export default function Drawing() {
 
     setRedoStack([]);
     setIsDisplayColorPicker(false);
-};
+  };
 
-const handleTouchMove = (e: any) => {
+  const handleTouchMove = (e: any) => {
     e.evt.preventDefault();
     if (!isDrawing.current) {
-        return;
+      return;
     }
     const point = e.target.getStage().getPointerPosition();
     let lastLine = lines[lines.length - 1];
     lastLine.points = lastLine.points.concat([point.x, point.y]);
     lines.splice(lines.length - 1, 1, lastLine);
     setLines([...lines]);
-};
+  };
 
-const handleTouchEnd = (e: any) => {
+  const handleTouchEnd = (e: any) => {
     e.evt.preventDefault();
     isDrawing.current = false;
-};
+  };
 
   return (
     <div className={styles.drawing}>
