@@ -11,14 +11,14 @@
 
 // 変数
 :root {
-  --c-primary: rgb(254, 143, 198);
+  --c-primary: #fe8fc6;
   --c-black: black;
   --c-white: white;
 
   --s-width: 800px;
 }
 
-main{
+main {
   width: var(--s-width);
   margin: 0 auto;
 }
