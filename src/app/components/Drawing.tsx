@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 
 import { Stage, Layer, Line } from "react-konva";
-import clsx from "clsx";
 
 import styles from "./Drawing.module.scss";
 import Button from "./Button";
@@ -21,19 +20,22 @@ export default function Drawing() {
   const onClickDisplayColorPicker = () => {
     setIsDisplayColorPicker(!isDisplayColorPicker);
   };
+  const [history, setHistory] = useState<any[]>([]);
+  const [redoStack, setRedoStack] = useState<any[]>([]);
 
   const handleMouseDown = (e: any) => {
     isDrawing.current = true;
     const position = e.target.getStage().getPointerPosition();
-    setLines([
-      ...lines,
-      {
-        tool,
-        points: [position.x, position.y],
-        color: hex,
-        strokeWidth: lineWidth,
-      },
-    ]);
+    const newLine = {
+      tool,
+      points: [position.x, position.y],
+      color: hex,
+      strokeWidth: lineWidth,
+    }
+    const newLines = [...lines, newLine];
+    setLines(newLines);
+    setHistory([...history, newLines]);
+    setRedoStack([]);
   };
 
   const handleMouseMove = (e: any) => {
@@ -59,6 +61,26 @@ export default function Drawing() {
   const handleLineWidthChange = (e: any) => {
     setLineWidth(Number(e.target.value));
   };
+
+  const handleUndo = () =>{
+    if(history.length === 0) return;
+    setRedoStack([...redoStack, history[history.length - 1]]);
+    if(history.length === 1){
+      setLines([]);
+      setHistory([]);
+    }else{
+      setLines(history[history.length - 2]);
+      setHistory(history.slice(0, -1));
+    }
+  }
+
+  const handleRedo = () =>{
+    if(redoStack.length === 0)return;
+    setLines(redoStack[redoStack.length - 1]);
+    setHistory([...history, lines]);
+    setRedoStack(redoStack.slice(0, -1));
+    console.log(redoStack);
+  }
 
   return (
     <div className={styles.drawing}>
@@ -102,6 +124,14 @@ export default function Drawing() {
         <Button
           label="カラー"
           onClick={onClickDisplayColorPicker}
+        />
+        <Button
+          label="←戻る"
+          onClick={handleUndo}
+        />
+        <Button
+          label="進む→"
+          onClick={handleRedo}
         />
       </div>
       <div style={{ display: isDisplayColorPicker ? "block" : "none" }}>
