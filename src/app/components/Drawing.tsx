@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 
 import { Stage, Layer, Line } from "react-konva";
+import clsx from "clsx";
 
 import styles from "./Drawing.module.scss";
 import Button from "./Button";
@@ -15,6 +16,7 @@ export default function Drawing() {
   const [lines, setLines] = useState<any[]>([]);
   const isDrawing = useRef(false);
   const [hex, setHex] = useState("#fe8fc6");
+  const [lineWidth, setLineWidth] = useState(5);
   const [isDisplayColorPicker, setIsDisplayColorPicker] = useState(false);
   const onClickDisplayColorPicker = () => {
     setIsDisplayColorPicker(!isDisplayColorPicker);
@@ -29,7 +31,7 @@ export default function Drawing() {
         tool,
         points: [position.x, position.y],
         color: hex,
-        strokeWidth: 3,
+        strokeWidth: lineWidth,
       },
     ]);
   };
@@ -52,6 +54,10 @@ export default function Drawing() {
 
   const onClickChangeTool = (tool: string) => {
     setTool(tool);
+  };
+
+  const handleLineWidthChange = (e: any) => {
+    setLineWidth(Number(e.target.value));
   };
 
   return (
@@ -103,6 +109,16 @@ export default function Drawing() {
           color={hex}
           onChange={(color) => setHex(color.hex)}
         />
+      </div>
+      <div className={styles.lineWidth}>
+        <input
+          type="range"
+          min={1}
+          max={20}
+          value={lineWidth}
+          onChange={handleLineWidthChange}
+        ></input>
+        {lineWidth}
       </div>
     </div>
   );
