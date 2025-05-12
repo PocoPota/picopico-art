@@ -81,12 +81,17 @@ export default function Drawing() {
 
     const restored = redoStack[redoStack.length - 1];
     const newRedoStack = redoStack.slice(0, -1);
-    const currentLines = JSON.parse(JSON.stringify(lines));
 
     setHistory([...history, restored]);
     setLines(restored);
     setRedoStack(newRedoStack);
   };
+
+  const handleReset = ()=>{
+    setLines([]);
+    setHistory([]);
+    setRedoStack([]);
+  }
 
   return (
     <div className={styles.drawing}>
@@ -130,14 +135,22 @@ export default function Drawing() {
         <Button
           label="カラー"
           onClick={onClickDisplayColorPicker}
-        />
+          size="small"
+          />
         <Button
           label="←戻る"
           onClick={handleUndo}
-        />
+          size="small"
+          />
         <Button
           label="進む→"
           onClick={handleRedo}
+          size="small"
+        />
+        <Button
+          label="リセット"
+          onClick={handleReset}
+          size="small"
         />
       </div>
       <div style={{ display: isDisplayColorPicker ? "block" : "none" }}>
