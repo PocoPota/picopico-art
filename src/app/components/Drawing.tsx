@@ -108,7 +108,7 @@ export default function Drawing() {
     <div className={styles.drawing}>
       <div className={styles.stage}>
         <Stage
-          width={800}
+          width={780}
           height={400}
           onMouseDown={handleMouseDown}
           onMousemove={handleMouseMove}
@@ -119,7 +119,7 @@ export default function Drawing() {
             <Rect
               x={0}
               y={0}
-              width={800}
+              width={780}
               height={400}
               fill="#ffffff"
               listening={false}
