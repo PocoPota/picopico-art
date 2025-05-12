@@ -9,7 +9,7 @@
   padding: 0.4em 1.3em;
   border-radius: 4em;
   cursor: pointer;
-  &:hover{
+  &:hover {
     opacity: 0.8;
   }
 }
@@ -26,7 +26,7 @@
 }
 
 // color
-.primary{
+.primary {
   background: var(--c-primary);
   color: var(--c-white);
 }

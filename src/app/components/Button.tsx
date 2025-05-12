@@ -4,7 +4,7 @@ import styles from "./Button.module.scss";
 type ButtonProps = {
   label: string;
   size?: "small" | "medium" | "large";
-  color?: "primary"
+  color?: "primary";
   onClick?: () => void;
   className?: string;
 };
@@ -16,6 +16,18 @@ export default function Button({
   className,
   ...props
 }: ButtonProps) {
-  const classNames = clsx(styles.button, styles[size], styles[color], className);
-  return <button className={classNames} {...props}>{label}</button>;
+  const classNames = clsx(
+    styles.button,
+    styles[size],
+    styles[color],
+    className,
+  );
+  return (
+    <button
+      className={classNames}
+      {...props}
+    >
+      {label}
+    </button>
+  );
 }
