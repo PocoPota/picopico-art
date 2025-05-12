@@ -12,7 +12,8 @@ export default function Button({
   label,
   size = "medium",
   className,
+  ...props
 }: ButtonProps) {
   const classNames = clsx(styles.button, styles[size], className);
-  return <button className={classNames}>{label}</button>;
+  return <button className={classNames} {...props}>{label}</button>;
 }
