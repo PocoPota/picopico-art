@@ -34,7 +34,11 @@ export default function Drawing() {
     }
     const newLines = [...lines, newLine];
     setLines(newLines);
-    setHistory([...history, newLines]);
+  
+    // deep copy（JSONで簡易的に）
+    const snapshot = JSON.parse(JSON.stringify(newLines));
+    setHistory([...history, snapshot]);
+  
     setRedoStack([]);
   };
 
@@ -62,25 +66,31 @@ export default function Drawing() {
     setLineWidth(Number(e.target.value));
   };
 
-  const handleUndo = () =>{
-    if(history.length === 0) return;
-    setRedoStack([...redoStack, history[history.length - 1]]);
-    if(history.length === 1){
-      setLines([]);
-      setHistory([]);
-    }else{
-      setLines(history[history.length - 2]);
-      setHistory(history.slice(0, -1));
-    }
-  }
-
-  const handleRedo = () =>{
-    if(redoStack.length === 0)return;
-    setLines(redoStack[redoStack.length - 1]);
-    setHistory([...history, lines]);
-    setRedoStack(redoStack.slice(0, -1));
-    console.log(redoStack);
-  }
+  const handleUndo = () => {
+    if (history.length === 0) return;
+  
+    const prevLines = history.length > 1
+      ? history[history.length - 2]
+      : [];
+  
+    const currentLines = JSON.parse(JSON.stringify(lines));
+    setRedoStack([...redoStack, currentLines]);
+    setLines(prevLines);
+    setHistory(history.slice(0, -1));
+  };
+  
+  const handleRedo = () => {
+    if (redoStack.length === 0) return;
+  
+    const restored = redoStack[redoStack.length - 1];
+    const newRedoStack = redoStack.slice(0, -1);
+    const currentLines = JSON.parse(JSON.stringify(lines));
+    
+    setHistory([...history, restored]);
+    setLines(restored);
+    setRedoStack(newRedoStack);
+  };
+  
 
   return (
     <div className={styles.drawing}>
