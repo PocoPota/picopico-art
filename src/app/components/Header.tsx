@@ -29,6 +29,7 @@ export default function Header() {
           <Button
             label="ログイン"
             size="small"
+            href="/login"
           />
         </div>
       </div>
