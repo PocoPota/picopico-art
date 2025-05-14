@@ -8,13 +8,21 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-import { User } from "firebase/auth"; // FirebaseのUser型をインポート
 import { auth } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../lib/firebase";
 
 // コンテキストの型を定義
 interface AuthContextType {
-  user: User | null; // ログインしているユーザー情報（ログインしていない場合はnull）
-  loading: boolean; // 認証状態を確認中かどうか
+  user: ExtendedUser | null;
+  loading: boolean;
+}
+
+interface ExtendedUser {
+  uid: string;
+  email: string | null;
+  // Firestore 上の追加情報
+  userName: string | null;
 }
 
 // AuthContextを作成（デフォルト値は仮のもの）
@@ -29,13 +37,37 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<ExtendedUser | null>(null);
   const [loading, setLoading] = useState(true); // 初期状態は認証状態を確認中
 
   useEffect(() => {
     // Firebaseの認証状態の変化を監視するリスナーを設定
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user); // 認証状態が変更されたらuserの状態を更新
+    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("uid", "==", firebaseUser.uid));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const docData = querySnapshot.docs[0].data(); // 一番最初の一致ドキュメントを取得
+          console.log("userData from Firestore:", docData);
+
+          setUser({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            userName: docData.userName ?? null,
+          });
+        } else {
+          console.warn("ユーザー情報がFirestoreに存在しません");
+          setUser({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            userName: null,
+          });
+        }
+      } else {
+        setUser(null);
+      }
       setLoading(false); // 確認が完了したのでloadingをfalseにする
     });
 

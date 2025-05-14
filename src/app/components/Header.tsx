@@ -33,7 +33,7 @@ export default function Header() {
         </Link>
         <div className={styles.account}>
           {user ? (
-            <div>Hello {user.email}!</div>
+            <div>ようこそ {user.userName} さん！</div>
           ) : (
             <Button
               label="ログイン"
