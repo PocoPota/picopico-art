@@ -1,0 +1,40 @@
+/* components/Input.module.scss */
+.container {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--c-black);
+  margin-bottom: 0.25rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px #0000000d;
+  outline: none;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+
+  &:focus {
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 2px #fe8fc680;
+  }
+}
+
+.inputError {
+  border-color: #f87171;
+}
+
+.errorText {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #ef4444;
+}
