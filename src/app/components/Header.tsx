@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Header.module.scss";
 import Button from "./Button";
+import Avatar from "boring-avatars";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -34,7 +35,11 @@ export default function Header() {
         <div className={styles.account}>
           {user ? (
             <Link href={`/user/${user.uid}`}>
-              <div>ようこそ {user.userName} さん！</div>
+              <Avatar
+                name={user.uid}
+                variant="beam"
+                size={40}
+              />
             </Link>
           ) : (
             <Button

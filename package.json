@@ -12,6 +12,7 @@
     "format": "prettier src --check"
   },
   "dependencies": {
+    "boring-avatars": "^1.11.2",
     "canvas": "^3.1.0",
     "clsx": "^2.1.1",
     "firebase": "^11.7.1",
