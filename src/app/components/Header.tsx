@@ -33,7 +33,9 @@ export default function Header() {
         </Link>
         <div className={styles.account}>
           {user ? (
-            <div>ようこそ {user.userName} さん！</div>
+            <Link href={`/user/${user.uid}`}>
+              <div>ようこそ {user.userName} さん！</div>
+            </Link>
           ) : (
             <Button
               label="ログイン"
