@@ -61,7 +61,7 @@ export default function User({ params }: PageProps) {
           </div>
           <div className={styles.p_right}>
             <div className={styles.username}>{userDoc.userName}</div>
-            <div className={styles.comment}>自己紹介がここに入ります。</div>
+            <div className={styles.comment}>{userDoc.comment}</div>
           </div>
         </div>
         {user && (

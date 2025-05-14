@@ -14,6 +14,7 @@ const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [comment, setComment] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
@@ -31,6 +32,7 @@ const SignUpForm: React.FC = () => {
           const docRef = addDoc(collection(db, "users"), {
             uid: user.uid,
             userName: userName,
+            comment: comment,
           });
         },
       );
@@ -77,6 +79,14 @@ const SignUpForm: React.FC = () => {
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             required
+          />
+        </div>
+        <div>
+          <label>自己紹介</label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
