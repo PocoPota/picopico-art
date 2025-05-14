@@ -23,6 +23,7 @@ interface ExtendedUser {
   email: string | null;
   // Firestore 上の追加情報
   userName: string | null;
+  comment: string | null;
 }
 
 // AuthContextを作成（デフォルト値は仮のもの）
@@ -54,6 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             uid: firebaseUser.uid,
             email: firebaseUser.email,
             userName: docData.userName ?? null,
+            comment: docData.comment
           });
         } else {
           console.warn("ユーザー情報がFirestoreに存在しません");
@@ -61,6 +63,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             uid: firebaseUser.uid,
             email: firebaseUser.email,
             userName: null,
+            comment: null,
           });
         }
       } else {
