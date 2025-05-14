@@ -2,7 +2,10 @@
 "use client"; // App Router を使用している場合、クライアントコンポーネントであることを示す
 
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, db } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
 import { addDoc, collection } from "firebase/firestore";
 import { useRouter } from "next/navigation";
@@ -21,15 +24,16 @@ const SignUpForm: React.FC = () => {
 
     try {
       // Firebase Authentication の新規登録関数を呼び出す
-      await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential)=>{
-        const user = userCredential.user;
-        // DBにユーザーネームを登録
-        const docRef = addDoc(collection(db, "users"),{
-          uid: user.uid,
-          userName: userName
-        });
-      });
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          // DBにユーザーネームを登録
+          const docRef = addDoc(collection(db, "users"), {
+            uid: user.uid,
+            userName: userName,
+          });
+        },
+      );
       // 成功した場合の処理（例: ホームページにリダイレクトなど）
       console.log("新規登録成功！");
       // useRouter などを使ってリダイレクト処理をここに記述
@@ -71,7 +75,7 @@ const SignUpForm: React.FC = () => {
             type="text"
             id="userName"
             value={userName}
-            onChange={(e)=>setUserName(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
             required
           />
         </div>
