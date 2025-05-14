@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./Header.module.scss";
 import Button from "./Button";
 import Avatar from "boring-avatars";
+import { GearSix } from "@phosphor-icons/react";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -34,13 +35,18 @@ export default function Header() {
         </Link>
         <div className={styles.account}>
           {user ? (
-            <Link href={`/user/${user.uid}`}>
-              <Avatar
-                name={user.uid}
-                variant="beam"
-                size={40}
-              />
-            </Link>
+            <>
+              <Link href="/settings" className={styles.settingBtn}>
+                <GearSix size={25} fill="#808080"/>
+              </Link>
+              <Link href={`/user/${user.uid}`}>
+                <Avatar
+                  name={user.uid}
+                  variant="beam"
+                  size={40}
+                />
+              </Link>
+            </>
           ) : (
             <Button
               label="ログイン"
