@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 
 import styles from "./page.module.scss";
 import LogoutButton from "../components/LogoutButton";
+import Button from "../components/Button";
+import Input from "../components/Input";
 
 export default function Settings() {
   const router = useRouter();
@@ -58,8 +60,8 @@ export default function Settings() {
         <h2>プロフィール</h2>
         <form onSubmit={handleUpdate}>
           <div>
-            <label>ユーザー名</label>
-            <input
+            <Input
+              label="ユーザー名"
               type="text"
               id="userName"
               value={userName ?? ""}
@@ -68,15 +70,16 @@ export default function Settings() {
             />
           </div>
           <div>
-            <label>自己紹介</label>
-            <textarea
+            <Input
+              label="自己紹介"
+              as="textarea"
               id="comment"
               value={comment ?? ""}
               onChange={(e) => setComment(e.target.value)}
             />
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
-          <button type="submit">更新</button>
+          <Button label="更新" type="submit" size="small"/>
         </form>
       </section>
       <section>

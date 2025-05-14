@@ -10,6 +10,9 @@ import { auth, db } from "../lib/firebase"; // ステップ4で初期化したau
 import { addDoc, collection } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
+import Button from "./Button";
+import Input from "./Input";
+
 const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,8 +55,8 @@ const SignUpForm: React.FC = () => {
       <h2>新規登録</h2>
       <form onSubmit={handleSignUp}>
         <div>
-          <label htmlFor="email">メールアドレス:</label>
-          <input
+          <Input
+            label="メールアドレス"
             type="email"
             id="email"
             value={email}
@@ -62,8 +65,8 @@ const SignUpForm: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="password">パスワード:</label>
-          <input
+          <Input
+            label="パスワード"
             type="password"
             id="password"
             value={password}
@@ -72,8 +75,8 @@ const SignUpForm: React.FC = () => {
           />
         </div>
         <div>
-          <label>ユーザー名</label>
-          <input
+          <Input
+            label="ユーザー名"
             type="text"
             id="userName"
             value={userName}
@@ -82,15 +85,16 @@ const SignUpForm: React.FC = () => {
           />
         </div>
         <div>
-          <label>自己紹介</label>
-          <textarea
+          <Input
+            label="自己紹介"
+            as="textarea"
             id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
-        <button type="submit">登録</button>
+        <Button label="登録" type="submit" size="small" />
       </form>
     </div>
   );

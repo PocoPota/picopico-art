@@ -6,6 +6,9 @@ import { signInWithEmailAndPassword } from "firebase/auth"; // ログイン用�
 import { auth } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
 import { useRouter } from "next/navigation";
 
+import Button from "./Button";
+import Input from "./Input";
+
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,8 +42,8 @@ const LoginForm: React.FC = () => {
       <h2>ログイン</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label htmlFor="email">メールアドレス:</label>
-          <input
+          <Input
+            label="メールアドレス"
             type="email"
             id="email"
             value={email}
@@ -49,8 +52,8 @@ const LoginForm: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="password">パスワード:</label>
-          <input
+          <Input
+            label="パスワード"
             type="password"
             id="password"
             value={password}
@@ -59,7 +62,7 @@ const LoginForm: React.FC = () => {
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
-        <button type="submit">ログイン</button>
+        <Button type="submit" label="ログイン" size="small" />
       </form>
       <p>
         <a href="/signup">新規アカウントの作成</a>
