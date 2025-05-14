@@ -36,8 +36,14 @@ export default function Header() {
         <div className={styles.account}>
           {user ? (
             <>
-              <Link href="/settings" className={styles.settingBtn}>
-                <GearSix size={25} fill="#808080"/>
+              <Link
+                href="/settings"
+                className={styles.settingBtn}
+              >
+                <GearSix
+                  size={25}
+                  fill="#808080"
+                />
               </Link>
               <Link href={`/user/${user.uid}`}>
                 <Avatar

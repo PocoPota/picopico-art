@@ -42,7 +42,7 @@ export default function User({ params }: PageProps) {
     if (!loading) {
       fetchUserData();
     }
-  }, [user, loading]);
+  }, [slug, loading]);
 
   if (loading || fetching) {
     return <div>Loading...</div>;

@@ -15,7 +15,6 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 import LogoutButton from "../components/LogoutButton";
 
-
 export default function Settings() {
   const router = useRouter();
   const { user, loading } = useAuth();

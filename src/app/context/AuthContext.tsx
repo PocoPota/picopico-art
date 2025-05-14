@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             uid: firebaseUser.uid,
             email: firebaseUser.email,
             userName: docData.userName ?? null,
-            comment: docData.comment
+            comment: docData.comment,
           });
         } else {
           console.warn("ユーザー情報がFirestoreに存在しません");

@@ -23,7 +23,13 @@ const LogoutButton: React.FC = () => {
     }
   };
 
-  return <Button onClick={handleLogout} label="ログアウト" size="small" />;
+  return (
+    <Button
+      onClick={handleLogout}
+      label="ログアウト"
+      size="small"
+    />
+  );
 };
 
 export default LogoutButton;
