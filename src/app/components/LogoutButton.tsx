@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth"; // signOut関数をインポート
 import { auth } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
 import { useRouter } from "next/navigation"; // Next.js App Router の場合のリダイレクト用
 // import { useRouter } from 'next/router'; // Next.js Pages Router の場合のリダイレクト用
+import Button from "./Button";
 
 const LogoutButton: React.FC = () => {
   const router = useRouter(); // リダイレクトを使う場合
@@ -22,7 +23,7 @@ const LogoutButton: React.FC = () => {
     }
   };
 
-  return <button onClick={handleLogout}>ログアウト</button>;
+  return <Button onClick={handleLogout} label="ログアウト" />;
 };
 
 export default LogoutButton;
