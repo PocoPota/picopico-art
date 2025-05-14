@@ -7,6 +7,9 @@ type ButtonProps = {
   color?: "primary";
   onClick?: () => void;
   className?: string;
+  href?: string;
+  type?: "button" | "submit" | "reset" | undefined;
+  target?: string;
 };
 
 export default function Button({
@@ -14,6 +17,10 @@ export default function Button({
   size = "medium",
   color = "primary",
   className,
+  href,
+  target,
+  type,
+  onClick,
   ...props
 }: ButtonProps) {
   const classNames = clsx(
@@ -22,9 +29,26 @@ export default function Button({
     styles[color],
     className,
   );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        className={classNames}
+        onClick={onClick}
+        {...props}
+      >
+        {label}
+      </a>
+    );
+  }
+
   return (
     <button
       className={classNames}
+      onClick={onClick}
+      type={type}
       {...props}
     >
       {label}

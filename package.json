@@ -12,8 +12,11 @@
     "format": "prettier src --check"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
+    "boring-avatars": "^1.11.2",
     "canvas": "^3.1.0",
     "clsx": "^2.1.1",
+    "firebase": "^11.7.1",
     "konva": "^9.3.20",
     "next": "15.3.2",
     "prettier": "^3.5.3",

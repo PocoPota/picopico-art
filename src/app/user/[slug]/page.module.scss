@@ -1,0 +1,19 @@
+.user {
+  margin-top: 50px;
+  .profile {
+    display: flex;
+    justify-content: space-between;
+    .p_user {
+      display: flex;
+      gap: 20px;
+      .p_right {
+        .username {
+          font-size: 25px;
+        }
+        .comment {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
