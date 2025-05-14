@@ -94,7 +94,11 @@ const SignUpForm: React.FC = () => {
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
-        <Button label="登録" type="submit" size="small" />
+        <Button
+          label="登録"
+          type="submit"
+          size="small"
+        />
       </form>
     </div>
   );

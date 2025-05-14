@@ -79,7 +79,11 @@ export default function Settings() {
             />
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
-          <Button label="更新" type="submit" size="small"/>
+          <Button
+            label="更新"
+            type="submit"
+            size="small"
+          />
         </form>
       </section>
       <section>

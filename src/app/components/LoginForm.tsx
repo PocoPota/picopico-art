@@ -62,7 +62,11 @@ const LoginForm: React.FC = () => {
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
-        <Button type="submit" label="ログイン" size="small" />
+        <Button
+          type="submit"
+          label="ログイン"
+          size="small"
+        />
       </form>
       <p>
         <a href="/signup">新規アカウントの作成</a>
