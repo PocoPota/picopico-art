@@ -4,11 +4,14 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth"; // ログイン用の関数をインポート
 import { auth } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
+import { useRouter } from "next/navigation";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault(); // フォームのデフォルト送信を防ぐ
@@ -20,6 +23,7 @@ const LoginForm: React.FC = () => {
       // ログイン成功した場合の処理（例: ホームページにリダイレクトなど）
       console.log("ログイン成功！");
       // useRouter などを使ってリダイレクト処理をここに記述
+      router.push("/");
     } catch (error: any) {
       // エラーが発生した場合の処理
       console.error("ログインエラー:", error);
@@ -57,6 +61,7 @@ const LoginForm: React.FC = () => {
         {error && <p style={{ color: "red" }}>{error}</p>} {/* エラー表示 */}
         <button type="submit">ログイン</button>
       </form>
+      <p><a href="/signup">新規アカウントの作成</a></p>
     </div>
   );
 };
