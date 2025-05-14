@@ -8,6 +8,7 @@ type ButtonProps = {
   onClick?: () => void;
   className?: string;
   href?: string;
+  type?: "button" | "submit" | "reset" | undefined;
   target?: string;
 };
 
@@ -18,6 +19,7 @@ export default function Button({
   className,
   href,
   target,
+  type,
   onClick,
   ...props
 }: ButtonProps) {
@@ -46,6 +48,7 @@ export default function Button({
     <button
       className={classNames}
       onClick={onClick}
+      type={type}
       {...props}
     >
       {label}
