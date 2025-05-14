@@ -50,8 +50,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         if (!querySnapshot.empty) {
           const docData = querySnapshot.docs[0].data(); // 一番最初の一致ドキュメントを取得
-          console.log("userData from Firestore:", docData);
-
           setUser({
             uid: firebaseUser.uid,
             email: firebaseUser.email,
