@@ -13,17 +13,24 @@ const Input: React.FC<InputProps> = ({
   error,
   className,
   as = "input",
+  type,
   ...props
 }) => {
+  const isFileInput = type === "file";
+  const useTextarea = as === "textarea" && !isFileInput;
+
   const commonProps = {
-    className: `${styles[as]} ${error ? styles.inputError : ""} ${className || ""}`,
+    className: `${styles[useTextarea ? "textarea" : "input"]} ${
+      error ? styles.inputError : ""
+    } ${className || ""}`,
+    type,
     ...props,
   };
 
   return (
     <div className={styles.container}>
       {label && <label className={styles.label}>{label}</label>}
-      {as === "textarea" ? (
+      {useTextarea ? (
         <textarea
           {...(commonProps as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
         />
