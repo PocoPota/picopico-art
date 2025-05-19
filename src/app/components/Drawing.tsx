@@ -17,9 +17,9 @@ import Button from "./Button";
 
 const ColorPicker = dynamic(() => import("./ColorPicker"), { ssr: false });
 
-export default function Drawing() {
+export default function Drawing(props: any) {
   const [tool, setTool] = useState("pen");
-  const [lines, setLines] = useState<any[]>([]);
+  const [lines, setLines] = useState<any[]>(props.lines_preset);
   const isDrawing = useRef(false);
   const [hex, setHex] = useState("#fe8fc6");
   const [lineWidth, setLineWidth] = useState(5);
