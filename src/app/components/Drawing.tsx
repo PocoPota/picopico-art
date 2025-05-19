@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Konva from "konva";
 import { Stage, Layer, Line, Rect } from "react-konva";
 
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useRouter } from "next/navigation";
 
@@ -124,7 +124,7 @@ export default function Drawing() {
     if (lines.length !== 0 && user) {
       // firebaseにlinesデータを保存
       try {
-        const date = new Date();
+        const date = Timestamp.now();
         const docRef = await addDoc(collection(db, "drawings"), {
           createdAt: date,
           updatedAt: date,
