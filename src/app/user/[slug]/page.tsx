@@ -66,8 +66,6 @@ export default function User({ params }: PageProps) {
           id: doc.id,
           ...(doc.data() as Omit<Item, "id">),
         }));
-        console.log(querySnapshot2);
-        console.log(itemsList);
         setItems(itemsList);
       } catch (e) {
         console.error(e);
