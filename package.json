@@ -19,6 +19,7 @@
     "firebase": "^11.7.1",
     "konva": "^9.3.20",
     "next": "15.3.2",
+    "next-cloudinary": "^6.16.0",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-color": "^2.19.3",
