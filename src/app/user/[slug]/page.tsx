@@ -5,7 +5,14 @@ import Avatar from "boring-avatars";
 
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/app/context/AuthContext";
-import { collection, query, where, orderBy, getDocs, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  getDocs,
+  Timestamp,
+} from "firebase/firestore";
 
 import { db } from "../../lib/firebase";
 import Button from "@/app/components/Button";
@@ -25,7 +32,7 @@ type Item = {
 
 export default function User({ params }: PageProps) {
   const { user, loading } = useAuth();
-  const unwrappedParams = React.use(params); // 👈 unwrap Promise
+  const unwrappedParams = React.use(params);
   const { slug } = unwrappedParams;
   const [userDoc, setUserDoc] = useState<any>(null);
   const [items, setItems] = useState<Item[]>([]);
@@ -106,7 +113,7 @@ export default function User({ params }: PageProps) {
       </div>
       <div className={styles.gallary}>
         <ul>
-          {items.map((item)=>(
+          {items.map((item) => (
             <li key={item.id}>
               <Link href={`/?did=${item.id}`}>
                 {item.id}: {item.createdAt.toDate().toLocaleString()}

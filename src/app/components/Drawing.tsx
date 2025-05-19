@@ -131,7 +131,7 @@ export default function Drawing() {
           lines: lines,
           uid: user.uid,
         });
-        router.push(`/user/${user.uid}`)
+        router.push(`/user/${user.uid}`);
       } catch (error) {
         console.error(error);
       }
