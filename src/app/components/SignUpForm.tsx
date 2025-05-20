@@ -1,30 +1,30 @@
-// components/SignUpForm.tsx (例)
-"use client"; // App Router を使用している場合、クライアントコンポーネントであることを示す
+"use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
-import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../lib/firebase";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 import Button from "./Button";
 import Input from "./Input";
 
-const SignUpForm: React.FC = () => {
+export default function SignUpForm(props: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [processing, setProcessing] = useState(true);
 
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault(); // フォームのデフォルト送信を防ぐ
-    setError(null); // エラーをリセット
+    e.preventDefault();
+    setError(null);
 
     try {
       // Firebase Authentication の新規登録関数を呼び出す
@@ -47,23 +47,56 @@ const SignUpForm: React.FC = () => {
       // エラーが発生した場合の処理
       console.error("新規登録エラー:", error);
       setError(error.message); // エラーメッセージを状態にセット
+    } finally {
+      setProcessing(false);
     }
   };
+
+  useEffect(() => {
+    const mailAuthData = async () => {
+      try {
+        const docRef = doc(db, "mailauth", props.code);
+        const docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) {
+          setError("認証コードが存在しません");
+          setProcessing(false);
+          return;
+        }
+
+        const mailAuth = docSnap.data();
+
+        // 有効期限チェック
+        const isValid = Date.now() - mailAuth.createdAt < 60 * 60 * 1000;
+        if (!isValid) {
+          setError("認証コードは無効です");
+          setProcessing(false);
+          return;
+        }
+
+        setEmail(mailAuth.email);
+        setProcessing(false);
+      } catch (err) {
+        setError("認証処理中にエラーが発生しました");
+        setProcessing(false);
+      }
+    };
+
+    if (props.code) {
+      mailAuthData();
+    } else {
+      setError("認証コードが見つかりません");
+      setProcessing(false);
+    }
+  }, [props.code]);
+
+  if (processing) {
+    return <div>読み込み中...</div>;
+  }
 
   return (
     <div>
       <h2>新規登録</h2>
       <form onSubmit={handleSignUp}>
-        <div>
-          <Input
-            label="メールアドレス"
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
         <div>
           <Input
             label="パスワード"
@@ -102,6 +135,4 @@ const SignUpForm: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default SignUpForm;
+}
