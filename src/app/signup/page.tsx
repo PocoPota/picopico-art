@@ -1,6 +1,13 @@
+"use client";
+
 import styles from "./page.module.scss";
-import SignUpForm from "../components/SignUpForm";
+import CreateAccount from "../components/CreateAccount";
+import { Suspense } from "react";
 
 export default function Login() {
-  return <SignUpForm />;
+  return (
+    <Suspense>
+      <CreateAccount />
+    </Suspense>
+  );
 }

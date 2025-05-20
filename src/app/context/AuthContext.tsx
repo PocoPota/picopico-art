@@ -1,5 +1,4 @@
-// context/AuthContext.tsx (例)
-"use client"; // App Router を使用している場合、クライアントコンポーネントであることを示す
+"use client";
 
 import React, {
   createContext,
@@ -8,7 +7,7 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-import { auth } from "../lib/firebase"; // ステップ4で初期化したauthオブジェクトをインポート
+import { auth } from "../lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../lib/firebase";
 
