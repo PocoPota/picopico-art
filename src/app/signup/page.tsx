@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./page.module.scss";
+import { Suspense } from "react";
 import SignUpForm from "../components/SignUpForm";
 import MailAuth from "../components/MailAuth";
 
@@ -11,7 +12,11 @@ export default function Login() {
   const code = searchParams.get("code");
 
   if (code) {
-    return <SignUpForm code={code} />;
+    return (
+      <Suspense>
+        <SignUpForm code={code} />
+      </Suspense>
+    );
   } else {
     return <MailAuth />;
   }
