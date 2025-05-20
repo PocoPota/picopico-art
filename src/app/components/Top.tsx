@@ -10,6 +10,8 @@ import Drawing from "../components/Drawing";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import styles from "./Top.module.scss";
+
 export default function Top() {
   const { user, loading } = useAuth();
   const searchParams = useSearchParams();
@@ -67,12 +69,14 @@ export default function Top() {
     return <Drawing lines_preset={lines ?? []} />;
   } else {
     return (
-      <Image
-        src={imageUrl}
-        width={780}
-        height={400}
-        alt="お絵かき作品"
-      />
+      <div className={styles.garally}>
+        <Image
+          src={imageUrl}
+          width={780}
+          height={400}
+          alt="お絵かき作品"
+        />
+      </div>
     );
   }
 }
