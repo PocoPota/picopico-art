@@ -13,6 +13,7 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
+import Image from "next/image";
 
 import { db } from "../../lib/firebase";
 import Button from "@/app/components/Button";
@@ -115,7 +116,7 @@ export default function User({ params }: PageProps) {
           {items.map((item) => (
             <li key={item.id}>
               <Link href={`/?did=${item.id}`}>
-                <img src={item.image_url} />
+                <Image src={item.image_url} width={250} height={250 * (400/780)} alt="お絵かき作品"/>
               </Link>
             </li>
           ))}

@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { useSearchParams } from "next/navigation";
 
 import Drawing from "../components/Drawing";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Top() {
@@ -65,8 +66,6 @@ export default function Top() {
   if (isStage) {
     return <Drawing lines_preset={lines ?? []} />;
   } else {
-    return (
-      <img src={imageUrl} />
-    );
+    return <Image src={imageUrl} width={780} height={400} alt="お絵かき作品" />;
   }
 }
