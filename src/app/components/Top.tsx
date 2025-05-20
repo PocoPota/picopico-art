@@ -16,22 +16,28 @@ export default function Top() {
 
   const [fetching, setFetching] = useState(true);
   const [lines, setLines] = useState<null | any[]>(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [isStage, setIsStage] = useState(true);
 
   useEffect(() => {
     const fetchDrawing = async () => {
+      console.log(user);
       try {
-        if (did && user) {
+        if (did) {
           // userがnullでないことを確認
           const docRef = doc(db, "drawings", did);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
             // 本人チェック
-            if (docSnap.data().uid === user.uid) {
-              setLines(docSnap.data().lines);
-            } else {
-              setLines([]);
+            setLines(docSnap.data().lines);
+            if(user){
+              if (docSnap.data().uid !== user.uid) {
+                setIsStage(false);
+                setImageUrl(docSnap.data().image_url);
+              }
+            }else{
               setIsStage(false);
+              setImageUrl(docSnap.data().image_url);
             }
           } else {
             setLines([]);
@@ -45,13 +51,10 @@ export default function Top() {
       }
     };
 
-    // loadingが終わっていて、userが存在する時だけ実行
-    if (!loading && user) {
+    if(did){
       fetchDrawing();
-    } else if (!loading && !user) {
-      // 未ログインで明示的にfalseとする
+    }else{
       setFetching(false);
-      setIsStage(false);
     }
   }, [did, user, loading]);
 
@@ -62,6 +65,8 @@ export default function Top() {
   if (isStage) {
     return <Drawing lines_preset={lines ?? []} />;
   } else {
-    return <div>{did}</div>;
+    return (
+      <img src={imageUrl} />
+    );
   }
 }
