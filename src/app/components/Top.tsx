@@ -31,12 +31,12 @@ export default function Top() {
           if (docSnap.exists()) {
             // 本人チェック
             setLines(docSnap.data().lines);
-            if(user){
+            if (user) {
               if (docSnap.data().uid !== user.uid) {
                 setIsStage(false);
                 setImageUrl(docSnap.data().image_url);
               }
-            }else{
+            } else {
               setIsStage(false);
               setImageUrl(docSnap.data().image_url);
             }
@@ -52,9 +52,9 @@ export default function Top() {
       }
     };
 
-    if(did){
+    if (did) {
       fetchDrawing();
-    }else{
+    } else {
       setFetching(false);
     }
   }, [did, user, loading]);
@@ -66,6 +66,13 @@ export default function Top() {
   if (isStage) {
     return <Drawing lines_preset={lines ?? []} />;
   } else {
-    return <Image src={imageUrl} width={780} height={400} alt="お絵かき作品" />;
+    return (
+      <Image
+        src={imageUrl}
+        width={780}
+        height={400}
+        alt="お絵かき作品"
+      />
+    );
   }
 }

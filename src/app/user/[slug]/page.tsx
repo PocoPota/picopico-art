@@ -116,7 +116,12 @@ export default function User({ params }: PageProps) {
           {items.map((item) => (
             <li key={item.id}>
               <Link href={`/?did=${item.id}`}>
-                <Image src={item.image_url} width={250} height={250 * (400/780)} alt="お絵かき作品"/>
+                <Image
+                  src={item.image_url}
+                  width={250}
+                  height={250 * (400 / 780)}
+                  alt="お絵かき作品"
+                />
               </Link>
             </li>
           ))}
