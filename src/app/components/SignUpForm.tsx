@@ -27,11 +27,9 @@ export default function SignUpForm(props: any) {
     setError(null);
 
     try {
-      // Firebase Authentication の新規登録関数を呼び出す
       await createUserWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           const user = userCredential.user;
-          // DBにユーザーネームを登録
           const docRef = addDoc(collection(db, "users"), {
             uid: user.uid,
             userName: userName,
@@ -39,14 +37,10 @@ export default function SignUpForm(props: any) {
           });
         },
       );
-      // 成功した場合の処理（例: ホームページにリダイレクトなど）
-      console.log("新規登録成功！");
-      // useRouter などを使ってリダイレクト処理をここに記述
       router.push("/");
     } catch (error: any) {
-      // エラーが発生した場合の処理
-      console.error("新規登録エラー:", error);
-      setError(error.message); // エラーメッセージを状態にセット
+      console.error(error);
+      setError(error.message);
     } finally {
       setProcessing(false);
     }
