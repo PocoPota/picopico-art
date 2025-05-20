@@ -94,6 +94,7 @@ export default function User({ params }: PageProps) {
               name={slug}
               variant="beam"
               size={70}
+              colors={["#8fc6fe", "#fe8fc6", "#c6fe8f"]}
             />
           </div>
           <div className={styles.p_right}>

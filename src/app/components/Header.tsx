@@ -50,6 +50,7 @@ export default function Header() {
                   name={user.uid}
                   variant="beam"
                   size={40}
+                  colors={["#8fc6fe", "#fe8fc6", "#c6fe8f"]}
                 />
               </Link>
             </>
