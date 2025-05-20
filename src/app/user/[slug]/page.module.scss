@@ -16,4 +16,27 @@
       }
     }
   }
+  .gallary {
+    margin-top: 50px;
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        width: 250px;
+        height: auto;
+        border: solid 2px var(--c-primary);
+        border-radius: 5px;
+        &:hover {
+          opacity: 0.7;
+        }
+        img {
+          width: 100%;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
 }

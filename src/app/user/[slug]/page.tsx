@@ -13,6 +13,7 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
+import Image from "next/image";
 
 import { db } from "../../lib/firebase";
 import Button from "@/app/components/Button";
@@ -28,6 +29,7 @@ type Item = {
   updatedAt: Timestamp;
   lines: Array<any>;
   uid: string;
+  image_url: string;
 };
 
 export default function User({ params }: PageProps) {
@@ -92,6 +94,7 @@ export default function User({ params }: PageProps) {
               name={slug}
               variant="beam"
               size={70}
+              colors={["#8fc6fe", "#fe8fc6", "#c6fe8f"]}
             />
           </div>
           <div className={styles.p_right}>
@@ -114,7 +117,12 @@ export default function User({ params }: PageProps) {
           {items.map((item) => (
             <li key={item.id}>
               <Link href={`/?did=${item.id}`}>
-                {item.id}: {item.createdAt.toDate().toLocaleString()}
+                <Image
+                  src={item.image_url}
+                  width={250}
+                  height={250 * (400 / 780)}
+                  alt="お絵かき作品"
+                />
               </Link>
             </li>
           ))}
