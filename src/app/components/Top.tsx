@@ -21,7 +21,8 @@ export default function Top() {
   useEffect(() => {
     const fetchDrawing = async () => {
       try {
-        if (did && user) { // userがnullでないことを確認
+        if (did && user) {
+          // userがnullでないことを確認
           const docRef = doc(db, "drawings", did);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
@@ -43,7 +44,7 @@ export default function Top() {
         setFetching(false);
       }
     };
-  
+
     // loadingが終わっていて、userが存在する時だけ実行
     if (!loading && user) {
       fetchDrawing();
@@ -53,15 +54,14 @@ export default function Top() {
       setIsStage(false);
     }
   }, [did, user, loading]);
-  
 
   if (loading || fetching) {
     return <div>Loading...</div>;
   }
 
-  if(isStage){
+  if (isStage) {
     return <Drawing lines_preset={lines ?? []} />;
-  }else{
+  } else {
     return <div>{did}</div>;
   }
 }

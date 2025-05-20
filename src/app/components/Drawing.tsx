@@ -9,6 +9,7 @@ import { Stage, Layer, Line, Rect } from "react-konva";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -122,14 +123,19 @@ export default function Drawing(props: any) {
 
   const handleSave = async () => {
     if (lines.length !== 0 && user) {
-      // firebaseにlinesデータを保存
       try {
+        // cloudinaryに画像化データを保存
+        const uri = stageRef.current?.toDataURL();
+        const res = await axios.post("/api/upload", { image: uri });
+
+        // firebaseにlinesデータを保存
         const date = Timestamp.now();
         const docRef = await addDoc(collection(db, "drawings"), {
           createdAt: date,
           updatedAt: date,
           lines: lines,
           uid: user.uid,
+          image_url: res.data.url,
         });
         router.push(`/user/${user.uid}`);
       } catch (error) {
