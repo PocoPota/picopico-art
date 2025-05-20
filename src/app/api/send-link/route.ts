@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       from: process.env.RESEND_FROM_EMAIL!,
       to: email,
       subject: "【ぴこぴこアート】ユーザー登録リンク",
-      html: `<p>以下のリンクをクリックして登録を完了してください:</p>
+      html: `<p>以下のリンクをクリックして登録を完了してください。<br>リンクの有効期間は1時間です。</p>
              <a href="${registrationUrl}">${registrationUrl}</a>`,
     });
 
