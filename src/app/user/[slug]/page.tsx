@@ -28,6 +28,7 @@ type Item = {
   updatedAt: Timestamp;
   lines: Array<any>;
   uid: string;
+  image_url: string;
 };
 
 export default function User({ params }: PageProps) {
@@ -114,7 +115,7 @@ export default function User({ params }: PageProps) {
           {items.map((item) => (
             <li key={item.id}>
               <Link href={`/?did=${item.id}`}>
-                {item.id}: {item.createdAt.toDate().toLocaleString()}
+                <img src={item.image_url} />
               </Link>
             </li>
           ))}
