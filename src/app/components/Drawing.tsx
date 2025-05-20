@@ -6,14 +6,20 @@ import dynamic from "next/dynamic";
 import Konva from "konva";
 import { Stage, Layer, Line, Rect } from "react-konva";
 
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { db } from "../lib/firebase";
+import { useRouter } from "next/navigation";
+
+import { useAuth } from "../context/AuthContext";
+
 import styles from "./Drawing.module.scss";
 import Button from "./Button";
 
 const ColorPicker = dynamic(() => import("./ColorPicker"), { ssr: false });
 
-export default function Drawing() {
+export default function Drawing(props: any) {
   const [tool, setTool] = useState("pen");
-  const [lines, setLines] = useState<any[]>([]);
+  const [lines, setLines] = useState<any[]>(props.lines_preset);
   const isDrawing = useRef(false);
   const [hex, setHex] = useState("#fe8fc6");
   const [lineWidth, setLineWidth] = useState(5);
@@ -24,6 +30,9 @@ export default function Drawing() {
   const [history, setHistory] = useState<any[]>([]);
   const [redoStack, setRedoStack] = useState<any[]>([]);
   const stageRef = useRef<Konva.Stage>(null);
+
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
   const handleMouseDown = (e: any) => {
     isDrawing.current = true;
@@ -111,6 +120,24 @@ export default function Drawing() {
     setIsDisplayColorPicker(false);
   };
 
+  const handleSave = async () => {
+    if (lines.length !== 0 && user) {
+      // firebaseにlinesデータを保存
+      try {
+        const date = Timestamp.now();
+        const docRef = await addDoc(collection(db, "drawings"), {
+          createdAt: date,
+          updatedAt: date,
+          lines: lines,
+          uid: user.uid,
+        });
+        router.push(`/user/${user.uid}`);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const handleTouchStart = (e: any) => {
     e.evt.preventDefault();
     const point = e.target.getStage().getPointerPosition();
@@ -146,6 +173,10 @@ export default function Drawing() {
     e.evt.preventDefault();
     isDrawing.current = false;
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.drawing}>
@@ -223,6 +254,13 @@ export default function Drawing() {
           onClick={handleDownload}
           size="small"
         />
+        {user && (
+          <Button
+            label="保存"
+            onClick={handleSave}
+            size="small"
+          />
+        )}
       </div>
       <div style={{ display: isDisplayColorPicker ? "block" : "none" }}>
         <ColorPicker

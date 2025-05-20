@@ -1,5 +1,10 @@
-import Drawing from "./components/Drawing";
+import { Suspense } from "react";
+import Top from "./components/Top";
 
 export default function Home() {
-  return <Drawing />;
+  return (
+    <Suspense>
+      <Top />
+    </Suspense>
+  );
 }
