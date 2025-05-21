@@ -1,0 +1,13 @@
+.settings {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  .account {
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}

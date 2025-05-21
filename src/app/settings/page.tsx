@@ -87,10 +87,16 @@ export default function Settings() {
           />
         </form>
       </section>
-      <section>
+      <section className={styles.account}>
         <h2>アカウント</h2>
-        <LogoutButton />
-        <DeleteAccountButton/>
+        <div className={styles.buttons}>
+          <div>
+            <LogoutButton />
+          </div>
+          <div>
+            <DeleteAccountButton />
+          </div>
+        </div>
       </section>
     </div>
   );
