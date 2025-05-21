@@ -10,6 +10,7 @@ import React, {
 import { auth } from "../lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../lib/firebase";
+import { User } from "firebase/auth";
 
 // コンテキストの型を定義
 interface AuthContextType {
@@ -18,6 +19,7 @@ interface AuthContextType {
 }
 
 interface ExtendedUser {
+  firebaseUser: User;
   uid: string;
   email: string | null;
   // Firestore 上の追加情報
@@ -51,6 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (!querySnapshot.empty) {
           const docData = querySnapshot.docs[0].data(); // 一番最初の一致ドキュメントを取得
           setUser({
+            firebaseUser: firebaseUser,
             uid: firebaseUser.uid,
             email: firebaseUser.email,
             userName: docData.userName ?? null,
@@ -59,6 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } else {
           console.warn("ユーザー情報がFirestoreに存在しません");
           setUser({
+            firebaseUser: firebaseUser,
             uid: firebaseUser.uid,
             email: firebaseUser.email,
             userName: null,

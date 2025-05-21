@@ -31,7 +31,7 @@ export default function Header() {
               }}
             />
           </div>
-          ぴこぴこアート
+          ぴこぴこアート<span>β</span>
         </Link>
         <div className={styles.account}>
           {user ? (
