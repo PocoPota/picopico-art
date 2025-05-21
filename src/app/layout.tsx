@@ -4,7 +4,7 @@ import "./globals.scss";
 import Header from "./components/Header";
 
 export const metadata: Metadata = {
-  title: "ぴこぴこアート",
+  title: "ぴこぴこアートβ",
   description: "お絵かきアプリ",
 };
 
