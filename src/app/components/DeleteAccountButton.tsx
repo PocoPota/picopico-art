@@ -2,7 +2,14 @@
 
 import React from "react";
 import { useAuth } from "../context/AuthContext";
-import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -45,7 +52,6 @@ export default function DeleteAccountButton() {
       );
 
       await Promise.all(deletePromises2);
-
 
       console.log("アカウントを削除しました");
 
