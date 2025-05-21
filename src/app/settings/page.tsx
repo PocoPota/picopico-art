@@ -16,6 +16,7 @@ import styles from "./page.module.scss";
 import LogoutButton from "../components/LogoutButton";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import DeleteAccountButton from "../components/DeleteAccountButton";
 
 export default function Settings() {
   const router = useRouter();
@@ -89,6 +90,7 @@ export default function Settings() {
       <section>
         <h2>アカウント</h2>
         <LogoutButton />
+        <DeleteAccountButton/>
       </section>
     </div>
   );
